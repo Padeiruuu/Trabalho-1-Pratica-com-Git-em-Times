@@ -1,27 +1,34 @@
 public class Item {
 
-	private int descricao;
+	private String descricao;
 
-	private int valorUnitario;
+	private double valorUnitario;
 
 	private int quantidade;
 
-	private int valorTotal;
+	private double valorTotal;
 
-	public void getValorTotal() {
-
+	public Item(String descricao, double valorUnitario, int quantidade, double valorTotal){
+		this.descricao=descricao;
+		this.valorUnitario=valorUnitario;
+		this.quantidade=quantidade;
+		this.valorTotal=valorTotal;
 	}
 
-	public void getQuantidade() {
-
+	public double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void getValorUnitario() {
-
+	public int getQuantidade() {
+		return quantidade;
 	}
 
-	public void getDescricao() {
+	public double getValorUnitario() {
+		return valorUnitario;
+	}
 
+	public String getDescricao() {
+		return descricao;
 	}
 
 }

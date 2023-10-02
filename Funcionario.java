@@ -1,4 +1,4 @@
-public class Funcionário extends Usuário {
+public class Funcionario extends Usuario {
 
 	private int Departamento;
 

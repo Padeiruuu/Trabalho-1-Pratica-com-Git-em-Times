@@ -1,4 +1,4 @@
-public class Usuário {
+public class Usuario {
 
 	private int identificador;
 
