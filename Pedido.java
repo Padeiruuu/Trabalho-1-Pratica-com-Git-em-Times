@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pedido {
 
 	private Funcionario funcionario;
@@ -10,10 +13,15 @@ public class Pedido {
 
 	private String status;
 
-	private Item item;
+	private List<Item> itens;
 
-	public Pedido(){
-
+	public Pedido(Funcionario funcionario, Departamentos departamento, String dataPedido, String dataFechamento, String status){
+		this.funcionario=funcionario;
+		this.departamento=departamento;
+		this.dataPedido=dataPedido;
+		this.dataFechamento=dataFechamento;
+		this.status=status;
+		itens=new ArrayList<>();
 	}
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -23,23 +31,31 @@ public class Pedido {
 		return departamento;
 	}
 
-	public int getDataPedido() {
-		return 0;
+	public String getDataPedido() {
+		return dataPedido;
 	}
 
-	public void getDataFechamento() {
-
+	public String getDataFechamento() {
+		return dataFechamento;
 	}
 
-	public void getStatus() {
-
+	public String getStatus() {
+		return status;
 	}
 
-	public void getItens() {
-
+	public List<Item> getItens() {
+		return itens;
 	}
 
 	public void setStatus(String status){
 		this.status=status;
+	}
+
+	public void adicionaItens(Item item){
+
+	}
+
+	public void removeItens(Item item){
+
 	}
 }
