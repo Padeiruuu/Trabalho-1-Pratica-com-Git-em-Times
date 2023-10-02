@@ -1,23 +1,26 @@
 public class Pedido {
 
-	private int Funcionario;
+	private Funcionario funcionario;
 
-	private int Departamento;
+	private Departamento departamento;
 
-	private int dataPedido;
+	private String dataPedido;
 
-	private int dataFechamento;
+	private String dataFechamento;
 
-	private int status;
+	private String status;
 
-	private int Item;
+	private Item item;
 
-	public void getFuncionario() {
+	public Pedido(){
 
 	}
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
 
-	public void getDepartamento() {
-
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
 	public int getDataPedido() {
@@ -36,4 +39,7 @@ public class Pedido {
 
 	}
 
+	public void setStatus(String status){
+		this.status=status;
+	}
 }
