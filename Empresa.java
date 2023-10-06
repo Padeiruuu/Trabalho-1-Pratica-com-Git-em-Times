@@ -1,4 +1,10 @@
+import java.util.*;
 public class Empresa {
+
+	public void operacoes(){
+		Scanner in = new Scanner(System.in);
+		menuUsuario();
+	}
 
 	public void setPedidos() {
 
@@ -8,8 +14,15 @@ public class Empresa {
 
 	}
 
-	public void menuUsuário() {
-
+	public void menuUsuario() {
+		String menuUsuario = """
+       			Digite o usuário:
+       			
+    			1. Funcionário
+    			2. Administrador
+    	
+				""";
+		System.out.println(menuUsuario);
 	}
 
 	public void getPedidos() {
@@ -55,4 +68,12 @@ public class Empresa {
 
 	}
 
+	public void menuFuncionário(){
+		String menuFuncionario = """
+    			1. 
+    			2.
+    			3.
+				""";
+		System.out.println(menuFuncionario);
+	}
 }
