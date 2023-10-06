@@ -1,9 +1,13 @@
 public class Funcionario extends Usuario {
 
-	private int Departamento;
+	private Departamentos departamento;
 
-	public void getDepartamento() {
-
+	public Funcionario(int id, String nome, String iniciais, Departamentos departamento) {
+		super(id, nome, iniciais, false);
+		this.departamento = departamento;
 	}
 
+	public Departamentos getDepartamento() {
+		return departamento;
+	}
 }
