@@ -35,7 +35,7 @@ deverá garantir que seu nome/usuário conste (em bom número de ocorrências) n
 confirmando a sua participação no processo de desenvolvimento, seguindo o fluxo de trabalho definido pelo grupo.
 Dica: utilize o comando abaixo para uma métrica básica por usuário:
 git shortlog -s -n --all --no-merges
-Requisitos Gerais do Sistema a Desenvolver
+# Requisitos Gerais do Sistema a Desenvolver
 1. Deseja-se desenvolver um sistema de controle de aquisições para uma empresa.
 2. O sistema deverá ser implementado em Java Console /ou/ Web Puro (apenas HTML+CSS+Javascript).
 Não utilizar frameworks ou outras dependências. A ideia é ter a base de código o mais simples possível.
