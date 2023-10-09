@@ -9,6 +9,28 @@ public class Empresa {
 		Departamentos depto5 = new Departamentos();
 	}
 
+	public void menuFuncionario(){
+		String menuFuncionario = """
+    			1. Registrar um novo pedido de aquisição
+    			2. Excluir pedido de aquisição
+    			3. Fechar pedido de aquisição
+    			4. Sair
+				""";
+		System.out.println(menuFuncionario);
+	}
+
+	public void menuAdministrador(){
+		String menuAdministrador = """
+    			1. Registrar um novo pedido de aquisição 
+    			2. Avaliar pedido de aquisição
+    			3. Visualizar pedidos entre duas datas
+    			4. Buscar pedidos por funcionário solicitante
+    			5. Buscar pedidos pela descrição de um item
+    			6. Visualizar estatísticas gerais
+    			7. Sair
+				""";
+		System.out.println(menuAdministrador);
+	}
 	public void operacoes(){
 		Scanner in = new Scanner(System.in);
 		int option=0;
@@ -25,12 +47,66 @@ public class Empresa {
 						opt = in.nextInt();
 						switch (opt) {
 							case 1:
+								System.out.println("Para registrar um novo pedido de aquisição informe: ");
+
+								System.out.printf("\nNome do funcionário: ");
+								String nomeFuncionario = in.nextLine();
+
+								System.out.printf("\nNome do departamento: ");
+								String nomeDepartamento = in.nextLine();
+
+								System.out.printf("\nData do pedido: ");
+								String dataPedido = in.nextLine();
+
+								System.out.printf("\nData de fechamento");
+								String dataFechamento = in.nextLine();
+
+								System.out.printf("\nStatus");
+								String status = in.nextLine();
+
+								Funcionario funcionario = new Funcionario(nomeFuncionario);
+								Departamentos departamentos = new Departamentos(nomeDepartamento);
+
+								Pedido novoPedido = new Pedido(funcionario, departamentos, dataPedido, dataFechamento, status);
+
 								break;
 							case 2:
+								System.out.println("Exclusão de aquisição: ");
+								System.out.printf("\nDigite o número do pedido que você deseja excluir: ");
+								int numPedido = in.nextInt();
+
+								boolean pedidoRemovido = false;
+
+								for(Pedido pedido : pedidos){
+									if(pedido.getNumeroPedido() == numPedido){
+										pedido.remove();
+										pedidoRemovido = true;
+										break;
+									}
+								}
+								if (pedidoRemovido) {
+									System.out.println("Pedido removido com sucesso.");
+								}else {
+									System.out.println("Pedido não encontrado");
+								}
 								break;
 							case 3:
+								System.out.println("Você escolheu fechar uma peido.");
+								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
+								numPedido = in.nextInt();
+								if (!pedidos.isEmpty() && numPedido >= 1 && numPedido <= pedidos.size()){
+									Pedido pedidoAtual = pedidos.get(numPedido);
+									if(!pedidoAtual.isFechada()){
+										pedidoAtual.fecharPedido();
+									}else{
+										System.out.println("O pedido já está fechado.");
+									}
+								}else{
+									System.out.println("Venda não encontrada.");
+								}
 								break;
 							case 4:
+								System.out.println("Voltando ao menu principal.");
 								break;
 							default:
 								System.out.println("ERRO");
@@ -136,28 +212,5 @@ public class Empresa {
 
 	public void getEstatisticas() {
 
-	}
-
-	public void menuFuncionario(){
-		String menuFuncionario = """
-    			1. Registrar um novo pedido de aquisição
-    			2. Excluir pedido de aquisição
-    			3. Fechar pedido de aquisição
-    			4. Sair
-				""";
-		System.out.println(menuFuncionario);
-	}
-
-	public void menuAdministrador(){
-		String menuAdministrador = """
-    			1. Registrar um novo pedido de aquisição 
-    			2. Avaliar pedido de aquisição
-    			3. Visualizar pedidos entre duas datas
-    			4. Buscar pedidos por funcionário solicitante
-    			5. Buscar pedidos pela descrição de um item
-    			6. Visualizar estatísticas gerais
-    			7. Sair
-				""";
-		System.out.println(menuAdministrador);
 	}
 }
