@@ -1,9 +1,78 @@
 import java.util.*;
 public class Empresa {
 
+	public Empresa(){
+		Departamentos depto1 = new Departamentos();
+		Departamentos depto2 = new Departamentos();
+		Departamentos depto3 = new Departamentos();
+		Departamentos depto4 = new Departamentos();
+		Departamentos depto5 = new Departamentos();
+	}
+
 	public void operacoes(){
 		Scanner in = new Scanner(System.in);
-		menuUsuario();
+		int option=0;
+		int opt=0;
+		int o=0;
+		do{
+			menuUsuario();
+			System.out.println("Digite a opção: ");
+			option = in.nextInt();
+			switch(option){
+				case 1:
+					do {
+						menuFuncionario();
+						opt = in.nextInt();
+						switch (opt) {
+							case 1:
+								break;
+							case 2:
+								break;
+							case 3:
+								break;
+							case 4:
+								break;
+							default:
+								System.out.println("ERRO");
+								break;
+						}
+					}while(opt!=4);
+					break;
+				case 2:
+					do {
+						menuAdministrador();
+						o = in.nextInt();
+						switch (o) {
+							case 1:
+								break;
+							case 2:
+								break;
+							case 3:
+								break;
+							case 4:
+								break;
+							case 5:
+								break;
+							case 6:
+								break;
+							case 7:
+								break;
+							default:
+								System.out.println("ERRO");
+								break;
+						}
+					}while(o!=7);
+					break;
+				case 3:
+					System.out.println("FIM");
+					break;
+				default:
+					System.out.println("ERRO");
+					break;
+			}
+
+		}while(option!=3);
+
 	}
 
 	public void setPedidos() {
@@ -20,6 +89,7 @@ public class Empresa {
        			
     			1. Funcionário
     			2. Administrador
+    			3. Sair
     	
 				""";
 		System.out.println(menuUsuario);
@@ -68,12 +138,26 @@ public class Empresa {
 
 	}
 
-	public void menuFuncionário(){
+	public void menuFuncionario(){
 		String menuFuncionario = """
-    			1. 
-    			2.
-    			3.
+    			1. Registrar um novo pedido de aquisição
+    			2. Excluir pedido de aquisição
+    			3. Fechar pedido de aquisição
+    			4. Sair
 				""";
 		System.out.println(menuFuncionario);
+	}
+
+	public void menuAdministrador(){
+		String menuAdministrador = """
+    			1. Registrar um novo pedido de aquisição 
+    			2. Avaliar pedido de aquisição
+    			3. Visualizar pedidos entre duas datas
+    			4. Buscar pedidos por funcionário solicitante
+    			5. Buscar pedidos pela descrição de um item
+    			6. Visualizar estatísticas gerais
+    			7. Sair
+				""";
+		System.out.println(menuAdministrador);
 	}
 }
