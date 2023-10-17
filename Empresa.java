@@ -2,13 +2,46 @@ import java.util.*;
 public class Empresa {
 
 	private List<Pedido> pedidos = new ArrayList<>();
+	private List<Departamentos> departamentos = new ArrayList<>();
 
 	public Empresa(){
-		Departamentos depto1 = new Departamentos();
-		Departamentos depto2 = new Departamentos();
-		Departamentos depto3 = new Departamentos();
-		Departamentos depto4 = new Departamentos();
-		Departamentos depto5 = new Departamentos();
+		Departamentos depto1 = new Departamentos("RH", 20000);
+		Departamentos depto2 = new Departamentos("Financeiro",10000);
+		Departamentos depto3 = new Departamentos("Tecnologia",15000);
+		Departamentos depto4 = new Departamentos("Arquitetura",5000);
+		Departamentos depto5 = new Departamentos("Administração",10000);
+
+		Funcionario func1 = new Funcionario(12345,"Carla","Car",depto1);
+		Funcionario func2 = new Funcionario(12346,"Carlos","Car",depto1);
+		Funcionario func3 = new Funcionario(12347,"Maria","Mar",depto1);
+		Funcionario func4 = new Funcionario(15345,"Cristina","Cri",depto2);
+		Funcionario func5 = new Funcionario(12645,"Roberta","Rob",depto2);
+		Funcionario func6 = new Funcionario(12745,"Ronaldo","Ron",depto2);
+		Funcionario func7 = new Funcionario(12845,"Jack","Jac",depto3);
+		Funcionario func8 = new Funcionario(12325,"Joana","Joa",depto3);
+		Funcionario func9 = new Funcionario(13545,"Alberto","Alb",depto3);
+		Funcionario func10 = new Funcionario(23345,"Jackson","Jac",depto4);
+		Funcionario func11 = new Funcionario(22345,"Rickson","Ric",depto4);
+		Funcionario func12 = new Funcionario(42345,"Jonas","Jon",depto4);
+		Funcionario func13 = new Funcionario(32345,"Maria","Mar",depto5);
+		Funcionario func14 = new Funcionario(72345,"Ricardo","Ric",depto5);
+		Funcionario func15 = new Funcionario(92345,"Vitor","Vit",depto5);
+		depto1.addFuncionarios(func1);
+		depto1.addFuncionarios(func2);
+		depto1.addFuncionarios(func3);
+		depto2.addFuncionarios(func4);
+		depto2.addFuncionarios(func5);
+		depto2.addFuncionarios(func6);
+		depto3.addFuncionarios(func7);
+		depto3.addFuncionarios(func8);
+		depto3.addFuncionarios(func9);
+		depto4.addFuncionarios(func10);
+		depto4.addFuncionarios(func11);
+		depto4.addFuncionarios(func12);
+		depto5.addFuncionarios(func13);
+		depto5.addFuncionarios(func14);
+		depto5.addFuncionarios(func15);
+
 	}
 
 	public void menuFuncionario(){
@@ -52,10 +85,18 @@ public class Empresa {
 								System.out.println("Para registrar um novo pedido de aquisição informe: ");
 
 								System.out.printf("\nNome do funcionário: ");
+								for (Departamentos dep : departamentos ) {
+									System.out.println(dep.getFuncionarios());
+								}
 								String nomeFuncionario = in.nextLine();
-
-								System.out.printf("\nNome do departamento: ");
-								String nomeDepartamento = in.nextLine();
+								Funcionario fu=null;
+								for (Departamentos dep : departamentos ) {
+									for ( Funcionario f : dep.getFuncionarios()) {
+										if(f.getNome().equals(nomeFuncionario)){
+											fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
+										}
+									}
+								}
 
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.nextLine();
@@ -66,10 +107,7 @@ public class Empresa {
 								System.out.printf("\nStatus");
 								String status = in.nextLine();
 
-								Funcionario funcionario = new Funcionario(nomeFuncionario);
-								Departamentos departamentos = new Departamentos(nomeDepartamento);
-
-								Pedido novoPedido = new Pedido(funcionario, departamentos, dataPedido, dataFechamento, status);
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status);
 
 								break;
 							case 2:
@@ -81,9 +119,8 @@ public class Empresa {
 
 								for(Pedido pedido : pedidos){
 									if(pedido.getNumeroPedido() == numPedido){
-										pedido.remove();
+										pedidos.remove(pedido);
 										pedidoRemovido = true;
-										break;
 									}
 								}
 								if (pedidoRemovido) {
@@ -93,18 +130,19 @@ public class Empresa {
 								}
 								break;
 							case 3:
-								System.out.println("Você escolheu fechar uma pedido.");
+								System.out.println("Você escolheu fechar um pedido.");
+								for (Pedido ped : pedidos) {
+									System.out.println(ped);
+								}
 								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
 								numPedido = in.nextInt();
-								if (!pedidos.isEmpty() && numPedido >= 1 && numPedido <= pedidos.size()){
-									Pedido pedidoAtual = pedidos.get(numPedido);
-									if(!pedidoAtual.isFechada()){
-										pedidoAtual.fecharPedido();
+								for (Pedido ped : pedidos) {
+									if (ped.getNumeroPedido==numPedido){
+										pedidos.remove(ped);
+										pedidos.fecha(ped);
 									}else{
-										System.out.println("O pedido já está fechado.");
+										System.out.println("Pedido não encontrado.");
 									}
-								}else{
-									System.out.println("Venda não encontrada.");
 								}
 								break;
 							case 4:
