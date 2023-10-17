@@ -2,6 +2,7 @@ import java.util.*;
 public class Empresa {
 
 	private List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedidosFechados = new ArrayList<>();
 	private List<Departamentos> departamentos = new ArrayList<>();
 
 	public Empresa(){
@@ -135,11 +136,11 @@ public class Empresa {
 									System.out.println(ped);
 								}
 								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
-								numPedido = in.nextInt();
+								int numPedid = in.nextInt();
 								for (Pedido ped : pedidos) {
-									if (ped.getNumeroPedido==numPedido){
+									if (ped.getNumeroPedido()==numPedid){
 										pedidos.remove(ped);
-										pedidos.fecha(ped);
+										pedidosFechados(ped);
 									}else{
 										System.out.println("Pedido não encontrado.");
 									}
@@ -163,10 +164,18 @@ public class Empresa {
 								System.out.println("Para registrar um novo pedido de aquisição informe: ");
 
 								System.out.printf("\nNome do funcionário: ");
+								for (Departamentos dep : departamentos ) {
+									System.out.println(dep.getFuncionarios());
+								}
 								String nomeFuncionario = in.nextLine();
-
-								System.out.printf("\nNome do departamento: ");
-								String nomeDepartamento = in.nextLine();
+								Funcionario fu=null;
+								for (Departamentos dep : departamentos ) {
+									for ( Funcionario f : dep.getFuncionarios()) {
+										if(f.getNome().equals(nomeFuncionario)){
+											fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
+										}
+									}
+								}
 
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.nextLine();
@@ -177,21 +186,23 @@ public class Empresa {
 								System.out.printf("\nStatus");
 								String status = in.nextLine();
 
-								Funcionario funcionario = new Funcionario(nomeFuncionario);
-								Departamentos departamentos = new Departamentos(nomeDepartamento);
-
-								Pedido novoPedido = new Pedido(funcionario, departamentos, dataPedido, dataFechamento, status);
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status);
 								break;
 							case 2:
+								for (Pedido p:
+									 pedidos) {
+									System.out.println(p);
+								}
 								System.out.println(pedidos);
-								System.out.println("Digite o pedido a ser excluído: ");
-								p = in.nextInt();
+								System.out.println("Digite o pedido a ser avaliado: ");
+								int pedid = in.nextInt();
 								for (Pedido p : pedidos) {
-									if(p.getCodigo==p){
+									if(p.getNumeroPedido()==pedid){
 										System.out.println("Status atual " + p.getStatus());
 										System.out.println("Qual a avaliação do pedido:\n1 - Aprovado\n2 - Reprovado\n3 - Pendente\n");
 										String s = in.next();
 										p.setStatus(s);
+										break;
 									}
 								}
 								break;
@@ -298,5 +309,9 @@ public class Empresa {
 
 	public void getEstatisticas() {
 
+	}
+
+	public void pedidosFechados(Pedido p){
+		pedidosFechados.add(p);
 	}
 }
