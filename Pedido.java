@@ -68,14 +68,6 @@ public class Pedido {
 		return numero;
 	}
 
-	public void pedidosFechados(Pedido p){
-		pedidosFechados.add(p);
-	}
-
-	public List<Pedido> getPedidosFechados() {
-		return pedidosFechados;
-	}
-
 	@Override
 	public String toString() {
 		return "Pedido{" +
