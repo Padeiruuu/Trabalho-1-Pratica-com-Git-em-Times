@@ -15,12 +15,17 @@ public class Pedido {
 
 	private List<Item> itens;
 
-	public Pedido(Funcionario funcionario, Departamentos departamento, String dataPedido, String dataFechamento, String status){
+	private List<Pedido> pedidosFechados = new ArrayList<>();;
+
+	private int numero;
+
+	public Pedido(Funcionario funcionario, Departamentos departamento, String dataPedido, String dataFechamento, String status, int numero){
 		this.funcionario=funcionario;
 		this.departamento=departamento;
 		this.dataPedido=dataPedido;
 		this.dataFechamento=dataFechamento;
 		this.status=status;
+		this.numero=numero;
 		itens=new ArrayList<>();
 	}
 	public Funcionario getFuncionario() {
@@ -52,10 +57,34 @@ public class Pedido {
 	}
 
 	public void adicionaItens(Item item){
-
+		itens.add(item);
 	}
 
 	public void removeItens(Item item){
+		itens.remove(item);
+	}
 
+	public int getNumeroPedido(){
+		return numero;
+	}
+
+	public void pedidosFechados(Pedido p){
+		pedidosFechados.add(p);
+	}
+
+	public List<Pedido> getPedidosFechados() {
+		return pedidosFechados;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido{" +
+				"funcionario=" + funcionario +
+				", departamento=" + departamento +
+				", dataPedido='" + dataPedido + '\'' +
+				", dataFechamento='" + dataFechamento + '\'' +
+				", status='" + status + '\'' +
+				", itens=" + itens +
+				'}';
 	}
 }
