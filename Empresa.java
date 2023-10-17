@@ -1,6 +1,8 @@
 import java.util.*;
 public class Empresa {
 
+	private List<Pedido> pedidos = new ArrayList<>();
+
 	public Empresa(){
 		Departamentos depto1 = new Departamentos();
 		Departamentos depto2 = new Departamentos();
@@ -91,7 +93,7 @@ public class Empresa {
 								}
 								break;
 							case 3:
-								System.out.println("Você escolheu fechar uma peido.");
+								System.out.println("Você escolheu fechar uma pedido.");
 								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
 								numPedido = in.nextInt();
 								if (!pedidos.isEmpty() && numPedido >= 1 && numPedido <= pedidos.size()){
@@ -120,18 +122,64 @@ public class Empresa {
 						o = in.nextInt();
 						switch (o) {
 							case 1:
+								System.out.println("Para registrar um novo pedido de aquisição informe: ");
+
+								System.out.printf("\nNome do funcionário: ");
+								String nomeFuncionario = in.nextLine();
+
+								System.out.printf("\nNome do departamento: ");
+								String nomeDepartamento = in.nextLine();
+
+								System.out.printf("\nData do pedido: ");
+								String dataPedido = in.nextLine();
+
+								System.out.printf("\nData de fechamento");
+								String dataFechamento = in.nextLine();
+
+								System.out.printf("\nStatus");
+								String status = in.nextLine();
+
+								Funcionario funcionario = new Funcionario(nomeFuncionario);
+								Departamentos departamentos = new Departamentos(nomeDepartamento);
+
+								Pedido novoPedido = new Pedido(funcionario, departamentos, dataPedido, dataFechamento, status);
 								break;
 							case 2:
+								System.out.println(pedidos);
+								System.out.println("Digite o pedido a ser excluído: ");
+								p = in.nextInt();
+								for (Pedido p : pedidos) {
+									if(p.getCodigo==p){
+										System.out.println("Status atual " + p.getStatus());
+										System.out.println("Qual a avaliação do pedido:\n1 - Aprovado\n2 - Reprovado\n3 - Pendente\n");
+										String s = in.next();
+										p.setStatus(s);
+									}
+								}
 								break;
 							case 3:
+								System.out.println("Digite a data de início: (Apenas números");
+								int di = in.nextInt();
+								System.out.println("Digite a data de fim: (Apenas números");
+								int df = in.nextInt();
+								//verificação
+								//printa
 								break;
 							case 4:
+								System.out.println("Digite o nome do funcionário solicitante: ");]
+								f = in.nextLine();
+								for (Pedido p: pedidos) {
+									if(p.getFuncionario()==f){
+
+									}
+								}
 								break;
 							case 5:
 								break;
 							case 6:
 								break;
 							case 7:
+								System.out.println("Voltando ao menu principal.");
 								break;
 							default:
 								System.out.println("ERRO");
@@ -185,12 +233,12 @@ public class Empresa {
 
 
 	public void removePedido(int numPedido, int quantidade) {
-		if(aberta && numPedido >= 1 && numPedido <= listPedido.size() && quantidade > 0){
-			Pedido pedido = listPedido.get(numPedido - 1);
+		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
+			Pedido pedido = listaPedido.get(numPedido - 1);
 			if(quantidade < pedido.getQuantidade()){
-				pedido.setQuantiade(pedido.getQuantiade() - quantidade);
+				pedido.setQuantidade(pedido.getQuantidade() - quantidade);
 			} else{
-				listPedido.remove(pedido);
+				listaPedido.remove(pedido);
 			}
 		}
 	}
