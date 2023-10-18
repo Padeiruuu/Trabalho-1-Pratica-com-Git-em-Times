@@ -267,7 +267,7 @@ public class Empresa {
 								//printa
 								break;
 							case 4:
-								System.out.println("Digite o nome do funcionário solicitante: ");]
+								System.out.println("Digite o nome do funcionário solicitante: ");
 								f = in.nextLine();
 								for (Pedido p: pedidos) {
 									if(p.getFuncionario()==f){
@@ -276,8 +276,44 @@ public class Empresa {
 								}
 								break;
 							case 5:
+								System.out.println("Você escolheu buscar pedidos pela descrição de um item");
+								System.out.printf("Digite a descrição do item: ");
+								String descricao = in.nextLine();
+								Administrador administrador = new Administrador();
+								ArrayList<Pedido> pedidosPorDescricao = administrador.pedidoPorDescricao(descricao);
+
+								if(!pedidosPorDescricao.isEmpty()){
+									System.out.println("Descrições encontradas");
+									for (Pedido pedido: pedidosPorDescricao){
+										System.out.println("O número do pedido é: "+pedido.getNumeroPedido());
+									}
+								}else{
+									System.out.println("Nenhum pedido encontrado com a descrição inserida.");
+								}
 								break;
 							case 6:
+								System.out.println("Estatisticas Gerais");
+								System.out.println("Pedidos:");
+								int pedidoTotal = in.nextInt();
+								for (Pedido pedido: pedidos){
+									 pedidoTotal = pedido.getNumeroPedido();
+								}
+								if(pedidoTotal <= 0){
+									System.out.println("Não ocorreram pedidos.");
+								}else{
+									System.out.println("O número de pedidos total é: "+pedidoTotal);
+								}
+
+								System.out.println("Numero de pedidos nos ultimos 30 dias e o valor medio");
+								//COMO FAZ PRA VERIFCIAR A DATAAAAAAAA
+
+								System.out.println("Valor total de cada categoria nos ultimos 30 dias");
+								//Não faço ideia de como fazer isso;
+
+								System.out.println("Pedido de aquisição");
+								//A gente nao tem nenhum metodo que fala sobre pedidos abertos, aprovados, reprovados
+								//então nao sei o que fazer
+
 								break;
 							case 7:
 								System.out.println("Voltando ao menu principal.");
