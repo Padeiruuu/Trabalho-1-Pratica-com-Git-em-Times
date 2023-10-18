@@ -19,6 +19,8 @@ public class Pedido {
 
 	private int numero;
 
+	private double total=0;
+
 	public Pedido(Funcionario funcionario, Departamentos departamento, String dataPedido, String dataFechamento, String status, int numero){
 		this.funcionario=funcionario;
 		this.departamento=departamento;
@@ -68,12 +70,12 @@ public class Pedido {
 		return numero;
 	}
 
-	public void pedidosFechados(Pedido p){
-		pedidosFechados.add(p);
-	}
-
-	public List<Pedido> getPedidosFechados() {
-		return pedidosFechados;
+	public double Total(){
+		for (Item i:
+			 itens) {
+			total+=i.getValorTotal();
+		}
+		return total;
 	}
 
 	@Override
@@ -85,6 +87,9 @@ public class Pedido {
 				", dataFechamento='" + dataFechamento + '\'' +
 				", status='" + status + '\'' +
 				", itens=" + itens +
+				", pedidosFechados=" + pedidosFechados +
+				", numero=" + numero +
+				", total=" + total +
 				'}';
 	}
 }
