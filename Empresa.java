@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 public class Empresa {
 
@@ -43,6 +45,18 @@ public class Empresa {
 		depto5.addFuncionarios(func14);
 		depto5.addFuncionarios(func15);
 
+	}
+
+	public void menuUsuario() {
+		String menuUsuario = """
+       			Digite o usuário:
+       			
+    			1. Funcionário
+    			2. Administrador
+    			3. Sair
+    	
+				""";
+		System.out.println(menuUsuario);
 	}
 
 	public void menuFuncionario(){
@@ -259,12 +273,14 @@ public class Empresa {
 								}
 								break;
 							case 3:
-								System.out.println("Digite a data de início: (Apenas números");
-								int di = in.nextInt();
-								System.out.println("Digite a data de fim: (Apenas números");
-								int df = in.nextInt();
-								//verificação
-								//printa
+								System.out.println("Digite a data de início: ");
+								String di = in.next();
+								System.out.println("Digite a data de fim: ");
+								String df = in.next();
+								for (Pedido q:
+									 pedidosEntreDatas(di,df)) {
+									System.out.println(q);
+								}
 								break;
 							case 4:
 								System.out.println("Digite o nome do funcionário solicitante: ");
@@ -276,10 +292,8 @@ public class Empresa {
 								}
 								break;
 							case 5:
-								System.out.println("Você escolheu buscar pedidos pela descrição de um item");
 								System.out.printf("Digite a descrição do item: ");
 								String descricao = in.nextLine();
-								pedidoPorDescricao(descricao);
 								if(!pedidoPorDescricao(descricao).isEmpty()){
 									System.out.println("Descrições encontradas");
 									for (Pedido pedido: pedidoPorDescricao(descricao)){
@@ -334,42 +348,6 @@ public class Empresa {
 
 	}
 
-	public void setPedidos() {
-
-	}
-
-	public void avaliarPedidos() {
-
-	}
-
-	public void menuUsuario() {
-		String menuUsuario = """
-       			Digite o usuário:
-       			
-    			1. Funcionário
-    			2. Administrador
-    			3. Sair
-    	
-				""";
-		System.out.println(menuUsuario);
-	}
-
-	public void getPedidos() {
-
-	}
-
-	public void getPedidosFuncionario() {
-
-	}
-
-	public void getPedidosDescricao() {
-
-	}
-
-	public void getEstatisticas() {
-
-	}
-
 	public void pedidosFechados(Pedido p){
 		pedidosFechados.add(p);
 	}
@@ -385,6 +363,27 @@ public class Empresa {
 			}
 		}
 		return pedidosPorDescricao;
+	}
+
+	public ArrayList<Pedido> pedidosEntreDatas(String dataInicial, String dataFinal) {
+		ArrayList<Pedido> pedidosEntreDatas = new ArrayList<>();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			Date inicio = dateFormat.parse(dataInicial);
+			Date fim = dateFormat.parse(dataFinal);
+
+			for (Pedido pedido : pedidos) {
+				Date dataPedido = dateFormat.parse(pedido.getDataPedido());
+
+				if (dataPedido.compareTo(inicio) >= 0 && dataPedido.compareTo(fim) <= 0) {
+					pedidosEntreDatas.add(pedido);
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return pedidosEntreDatas;
 	}
 //	public void removePedido(int numPedido, int quantidade) {
 //		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
