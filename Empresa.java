@@ -2,6 +2,7 @@ import java.util.*;
 public class Empresa {
 
 	private List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedidosFechados = new ArrayList<>();
 	private List<Departamentos> departamentos = new ArrayList<>();
 
 	public Empresa(){
@@ -101,13 +102,40 @@ public class Empresa {
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.nextLine();
 
-								System.out.printf("\nData de fechamento");
+								System.out.printf("\nData de fechamento: ");
 								String dataFechamento = in.nextLine();
 
-								System.out.printf("\nStatus");
+								System.out.printf("\nStatus: ");
 								String status = in.nextLine();
 
-								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status);
+								System.out.println("\nCódigo do produto: ");
+								int c = in.nextInt();
+								for ( Pedido w:
+										pedidos) {
+									if(w.getNumeroPedido()==c){
+										System.out.println("Pedido já existente: ");
+										break;
+									}
+								}
+
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status, c);
+
+								System.out.println("Quantos itens deseja adicionar? ");
+								int i = in.nextInt();
+								for (int x=0;x<i;x++){
+									System.out.println("Informe a descrição: ");
+									String descricao = in.nextLine();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									System.out.println("Informe o valor total: ");
+									double valorTotal = in.nextDouble();
+									Item item = new Item(descricao,valorUnitario,quantidade,valorTotal);
+									novoPedido.adicionaItens(item);
+								}
+
+
 
 								break;
 							case 2:
@@ -135,11 +163,11 @@ public class Empresa {
 									System.out.println(ped);
 								}
 								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
-								numPedido = in.nextInt();
+								int numPedid = in.nextInt();
 								for (Pedido ped : pedidos) {
-									if (ped.getNumeroPedido==numPedido){
+									if (ped.getNumeroPedido()==numPedid){
 										pedidos.remove(ped);
-										pedidos.fecha(ped);
+										pedidosFechados(ped);
 									}else{
 										System.out.println("Pedido não encontrado.");
 									}
@@ -163,10 +191,18 @@ public class Empresa {
 								System.out.println("Para registrar um novo pedido de aquisição informe: ");
 
 								System.out.printf("\nNome do funcionário: ");
+								for (Departamentos dep : departamentos ) {
+									System.out.println(dep.getFuncionarios());
+								}
 								String nomeFuncionario = in.nextLine();
-
-								System.out.printf("\nNome do departamento: ");
-								String nomeDepartamento = in.nextLine();
+								Funcionario fu=null;
+								for (Departamentos dep : departamentos ) {
+									for ( Funcionario f : dep.getFuncionarios()) {
+										if(f.getNome().equals(nomeFuncionario)){
+											fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
+										}
+									}
+								}
 
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.nextLine();
@@ -177,21 +213,48 @@ public class Empresa {
 								System.out.printf("\nStatus");
 								String status = in.nextLine();
 
-								Funcionario funcionario = new Funcionario(nomeFuncionario);
-								Departamentos departamentos = new Departamentos(nomeDepartamento);
+								System.out.println("\nCódigo do produto: ");
+								int c = in.nextInt();
+								for ( Pedido w:
+									 pedidos) {
+									if(w.getNumeroPedido()==c){
+										System.out.println("Pedido já existente: ");
+										break;
+									}
+								}
 
-								Pedido novoPedido = new Pedido(funcionario, departamentos, dataPedido, dataFechamento, status);
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status, c);
+
+								System.out.println("Quantos itens deseja adicionar? ");
+								int i = in.nextInt();
+								for (int x=0;x<i;x++){
+									System.out.println("Informe a descrição: ");
+									String descricao = in.nextLine();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									System.out.println("Informe o valor total: ");
+									double valorTotal = in.nextDouble();
+									Item item = new Item(descricao,valorUnitario,quantidade,valorTotal);
+									novoPedido.adicionaItens(item);
+								}
 								break;
 							case 2:
+								for (Pedido p:
+									 pedidos) {
+									System.out.println(p);
+								}
 								System.out.println(pedidos);
-								System.out.println("Digite o pedido a ser excluído: ");
-								p = in.nextInt();
+								System.out.println("Digite o pedido a ser avaliado: ");
+								int pedid = in.nextInt();
 								for (Pedido p : pedidos) {
-									if(p.getCodigo==p){
+									if(p.getNumeroPedido()==pedid){
 										System.out.println("Status atual " + p.getStatus());
 										System.out.println("Qual a avaliação do pedido:\n1 - Aprovado\n2 - Reprovado\n3 - Pendente\n");
 										String s = in.next();
 										p.setStatus(s);
+										break;
 									}
 								}
 								break;
@@ -204,17 +267,51 @@ public class Empresa {
 								//printa
 								break;
 							case 4:
-								System.out.println("Digite o nome do funcionário solicitante: ");]
-								f = in.nextLine();
+								System.out.println("Digite o nome do funcionário solicitante: ");
+								String f = in.nextLine();
 								for (Pedido p: pedidos) {
-									if(p.getFuncionario()==f){
-
+									if(p.getFuncionario().getNome()==f){
+										System.out.println(p);
 									}
 								}
 								break;
 							case 5:
+								System.out.println("Você escolheu buscar pedidos pela descrição de um item");
+								System.out.printf("Digite a descrição do item: ");
+								String descricao = in.nextLine();
+								pedidoPorDescricao(descricao);
+								if(!pedidoPorDescricao(descricao).isEmpty()){
+									System.out.println("Descrições encontradas");
+									for (Pedido pedido: pedidoPorDescricao(descricao)){
+										System.out.println("O número do pedido é: "+pedido.getNumeroPedido());
+									}
+								}else{
+									System.out.println("Nenhum pedido encontrado com a descrição inserida.");
+								}
 								break;
 							case 6:
+								System.out.println("Estatisticas Gerais");
+								System.out.println("Pedidos:");
+								int pedidoTotal = in.nextInt();
+								for (Pedido pedido: pedidos){
+									 pedidoTotal = pedido.getNumeroPedido();
+								}
+								if(pedidoTotal <= 0){
+									System.out.println("Não ocorreram pedidos.");
+								}else{
+									System.out.println("O número de pedidos total é: "+pedidoTotal);
+								}
+
+								System.out.println("Numero de pedidos nos ultimos 30 dias e o valor medio");
+								//COMO FAZ PRA VERIFCIAR A DATAAAAAAAA
+
+								System.out.println("Valor total de cada categoria nos ultimos 30 dias");
+								//Não faço ideia de como fazer isso;
+
+								System.out.println("Pedido de aquisição");
+								//A gente nao tem nenhum metodo que fala sobre pedidos abertos, aprovados, reprovados
+								//então nao sei o que fazer
+
 								break;
 							case 7:
 								System.out.println("Voltando ao menu principal.");
@@ -269,34 +366,50 @@ public class Empresa {
 
 	}
 
-
-	public void removePedido(int numPedido, int quantidade) {
-		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
-			Pedido pedido = listaPedido.get(numPedido - 1);
-			if(quantidade < pedido.getQuantidade()){
-				pedido.setQuantidade(pedido.getQuantidade() - quantidade);
-			} else{
-				listaPedido.remove(pedido);
-			}
-		}
-	}
-	public void fechaPedido(Pedido pedido) {
-
-		boolean pedidoEncontrado = false;
-
-		for(Pedido p : listaPedidos){
-			if(p.equals(pedido)){
-				pedidoEncontrado = true;
-				p.setStatus("Pedido Fechado");
-				getPedidosDescricao();
-			}
-		}
-		if(!pedidoEncontrado){
-			System.out.println("Pedido não encontrado. Não foi possível fechá-lo.");
-		}
-	}
-
 	public void getEstatisticas() {
 
 	}
+
+	public void pedidosFechados(Pedido p){
+		pedidosFechados.add(p);
+	}
+
+	public ArrayList<Pedido> pedidoPorDescricao(String descricao) {
+		ArrayList<Pedido> pedidosPorDescricao = new ArrayList<>();
+		for(Pedido pedido : pedidos) {
+			ArrayList<Item> itens = (ArrayList<Item>) pedido.getItens();
+			for(Item item : itens) {
+				if(item.getDescricao().equals(descricao)) {
+					pedidosPorDescricao.add(pedido);
+				}
+			}
+		}
+		return pedidosPorDescricao;
+	}
+//	public void removePedido(int numPedido, int quantidade) {
+//		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
+//			Pedido pedido = listaPedido.get(numPedido - 1);
+//			if(quantidade < pedido.getQuantidade()){
+//				pedido.setQuantidade(pedido.getQuantidade() - quantidade);
+//			} else{
+//				listaPedido.remove(pedido);
+//			}
+//		}
+//	}
+//	public void fechaPedido(Pedido pedido) {
+//
+//		boolean pedidoEncontrado = false;
+//
+//		for(Pedido p : listaPedidos){
+//			if(p.equals(pedido)){
+//				pedidoEncontrado = true;
+//				p.setStatus("Pedido Fechado");
+//				getPedidosDescricao();
+//			}
+//		}
+//		if(!pedidoEncontrado){
+//			System.out.println("Pedido não encontrado. Não foi possível fechá-lo.");
+//		}
+//	}
+
 }
