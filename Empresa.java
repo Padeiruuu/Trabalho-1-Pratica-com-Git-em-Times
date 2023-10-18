@@ -44,7 +44,11 @@ public class Empresa {
 		depto5.addFuncionarios(func13);
 		depto5.addFuncionarios(func14);
 		depto5.addFuncionarios(func15);
-
+		departamentos.add(depto1);
+		departamentos.add(depto2);
+		departamentos.add(depto3);
+		departamentos.add(depto4);
+		departamentos.add(depto5);
 	}
 
 	public void menuUsuario() {
@@ -100,27 +104,26 @@ public class Empresa {
 								System.out.println("Para registrar um novo pedido de aquisição informe: ");
 
 								System.out.printf("\nNome do funcionário: ");
-								for (Departamentos dep : departamentos ) {
-									System.out.println(dep.getFuncionarios());
-								}
-								String nomeFuncionario = in.nextLine();
-								Funcionario fu=null;
+								System.out.println(departamentos);
+								String nomeFuncionario = in.next();
+
 								for (Departamentos dep : departamentos ) {
 									for ( Funcionario f : dep.getFuncionarios()) {
 										if(f.getNome().equals(nomeFuncionario)){
-											fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
+											f.
+											//fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
 										}
 									}
 								}
 
 								System.out.printf("\nData do pedido: ");
-								String dataPedido = in.nextLine();
+								String dataPedido = in.next();
 
 								System.out.printf("\nData de fechamento: ");
-								String dataFechamento = in.nextLine();
+								String dataFechamento = in.next();
 
 								System.out.printf("\nStatus: ");
-								String status = in.nextLine();
+								String status = in.next();
 
 								System.out.println("\nCódigo do produto: ");
 								int c = in.nextInt();
@@ -138,7 +141,7 @@ public class Empresa {
 								int i = in.nextInt();
 								for (int x=0;x<i;x++){
 									System.out.println("Informe a descrição: ");
-									String descricao = in.nextLine();
+									String descricao = in.next();
 									System.out.println("Informe o valor unitário: ");
 									double valorUnitario = in.nextDouble();
 									System.out.println("Informe a quantidade: ");
@@ -208,7 +211,7 @@ public class Empresa {
 								for (Departamentos dep : departamentos ) {
 									System.out.println(dep.getFuncionarios());
 								}
-								String nomeFuncionario = in.nextLine();
+								String nomeFuncionario = in.next();
 								Funcionario fu=null;
 								for (Departamentos dep : departamentos ) {
 									for ( Funcionario f : dep.getFuncionarios()) {
@@ -219,13 +222,13 @@ public class Empresa {
 								}
 
 								System.out.printf("\nData do pedido: ");
-								String dataPedido = in.nextLine();
+								String dataPedido = in.next();
 
 								System.out.printf("\nData de fechamento");
-								String dataFechamento = in.nextLine();
+								String dataFechamento = in.next();
 
 								System.out.printf("\nStatus");
-								String status = in.nextLine();
+								String status = in.next();
 
 								System.out.println("\nCódigo do produto: ");
 								int c = in.nextInt();
@@ -243,7 +246,7 @@ public class Empresa {
 								int i = in.nextInt();
 								for (int x=0;x<i;x++){
 									System.out.println("Informe a descrição: ");
-									String descricao = in.nextLine();
+									String descricao = in.next();
 									System.out.println("Informe o valor unitário: ");
 									double valorUnitario = in.nextDouble();
 									System.out.println("Informe a quantidade: ");
@@ -284,7 +287,7 @@ public class Empresa {
 								break;
 							case 4:
 								System.out.println("Digite o nome do funcionário solicitante: ");
-								String f = in.nextLine();
+								String f = in.next();
 								for (Pedido p: pedidos) {
 									if(p.getFuncionario().getNome()==f){
 										System.out.println(p);
@@ -293,7 +296,7 @@ public class Empresa {
 								break;
 							case 5:
 								System.out.printf("Digite a descrição do item: ");
-								String descricao = in.nextLine();
+								String descricao = in.next();
 								if(!pedidoPorDescricao(descricao).isEmpty()){
 									System.out.println("Descrições encontradas");
 									for (Pedido pedido: pedidoPorDescricao(descricao)){
