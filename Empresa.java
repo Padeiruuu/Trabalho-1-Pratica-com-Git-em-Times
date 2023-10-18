@@ -8,10 +8,10 @@ public class Empresa {
 	private List<Departamentos> departamentos = new ArrayList<>();
 
 	public Empresa(){
-		Departamentos depto1 = new Departamentos("RH", 20000);
+		Departamentos depto1 = new Departamentos("RH", 10000);
 		Departamentos depto2 = new Departamentos("Financeiro",10000);
-		Departamentos depto3 = new Departamentos("Tecnologia",15000);
-		Departamentos depto4 = new Departamentos("Arquitetura",5000);
+		Departamentos depto3 = new Departamentos("Tecnologia",10000);
+		Departamentos depto4 = new Departamentos("Arquitetura",10000);
 		Departamentos depto5 = new Departamentos("Administração",10000);
 
 		Funcionario func1 = new Funcionario(12345,"Carla","Car",depto1);
@@ -103,19 +103,6 @@ public class Empresa {
 							case 1:
 								System.out.println("Para registrar um novo pedido de aquisição informe: ");
 
-								System.out.printf("\nNome do funcionário: ");
-								System.out.println(departamentos);
-								String nomeFuncionario = in.next();
-
-								for (Departamentos dep : departamentos ) {
-									for ( Funcionario f : dep.getFuncionarios()) {
-										if(f.getNome().equals(nomeFuncionario)){
-											f.
-											//fu = new Funcionario(f.getIdentificador(),f.getNome(),f.getIniciais(),f.getDepartamento());
-										}
-									}
-								}
-
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.next();
 
@@ -135,22 +122,42 @@ public class Empresa {
 									}
 								}
 
-								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status, c);
+								System.out.printf("\nNome do funcionário: ");
+								System.out.println(departamentos);
+								String nomeFuncionario = in.next();
+								Pedido novoPedido=null;
+								for (Departamentos dep : departamentos ) {
+									for ( Funcionario f : dep.getFuncionarios()) {
+										if(f.getNome().equals(nomeFuncionario)){
+											novoPedido = new Pedido(f, f.getDepartamento(), dataPedido, dataFechamento, status, c);
+											f.addPedido(novoPedido);
+										}else{
+											System.out.println("Não há funcionário com esse nome");
+											break;
+										}
+									}
+								}
 
 								System.out.println("Quantos itens deseja adicionar? ");
 								int i = in.nextInt();
 								for (int x=0;x<i;x++){
-									System.out.println("Informe a descrição: ");
-									String descricao = in.next();
-									System.out.println("Informe o valor unitário: ");
-									double valorUnitario = in.nextDouble();
-									System.out.println("Informe a quantidade: ");
-									int quantidade = in.nextInt();
-									System.out.println("Informe o valor total: ");
-									double valorTotal = in.nextDouble();
-									Item item = new Item(descricao,valorUnitario,quantidade,valorTotal);
-									novoPedido.adicionaItens(item);
+									if(novoPedido.Total()<novoPedido.getDepartamento().getValorMaximo()){
+										System.out.println("Informe a descrição: ");
+										String descricao = in.next();
+										System.out.println("Informe o valor unitário: ");
+										double valorUnitario = in.nextDouble();
+										System.out.println("Informe a quantidade: ");
+										int quantidade = in.nextInt();
+										System.out.println("Informe o valor total: ");
+										double valorTotal = in.nextDouble();
+										Item item = new Item(descricao, valorUnitario, quantidade, valorTotal);
+										novoPedido.adicionaItens(item);
+									}else{
+										System.out.println("Pedido ultrapassa valor máximo. Impossível adicionar tal item.");
+										break;
+									}
 								}
+
 
 
 
