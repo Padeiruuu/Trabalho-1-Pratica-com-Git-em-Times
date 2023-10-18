@@ -28,4 +28,11 @@ public class Departamentos {
 		System.out.println("Não foi possível cadastrar o funcionário no departamento "+getNome());
 	}
 
+	@Override
+	public String toString() {
+		return "Departamentos " +
+				"\nValor Máximo de funcionários= " + valorMaximo +
+				"\nNome= " + nome +
+				"\nFuncionarios=" + funcionarios;
+	}
 }
