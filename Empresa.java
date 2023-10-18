@@ -268,10 +268,10 @@ public class Empresa {
 								break;
 							case 4:
 								System.out.println("Digite o nome do funcionário solicitante: ");
-								f = in.nextLine();
+								String f = in.nextLine();
 								for (Pedido p: pedidos) {
-									if(p.getFuncionario()==f){
-
+									if(p.getFuncionario().getNome()==f){
+										System.out.println(p);
 									}
 								}
 								break;
@@ -279,12 +279,10 @@ public class Empresa {
 								System.out.println("Você escolheu buscar pedidos pela descrição de um item");
 								System.out.printf("Digite a descrição do item: ");
 								String descricao = in.nextLine();
-								Administrador administrador = new Administrador();
-								ArrayList<Pedido> pedidosPorDescricao = administrador.pedidoPorDescricao(descricao);
-
-								if(!pedidosPorDescricao.isEmpty()){
+								pedidoPorDescricao(descricao);
+								if(!pedidoPorDescricao(descricao).isEmpty()){
 									System.out.println("Descrições encontradas");
-									for (Pedido pedido: pedidosPorDescricao){
+									for (Pedido pedido: pedidoPorDescricao(descricao)){
 										System.out.println("O número do pedido é: "+pedido.getNumeroPedido());
 									}
 								}else{
@@ -368,7 +366,26 @@ public class Empresa {
 
 	}
 
+	public void getEstatisticas() {
 
+	}
+
+	public void pedidosFechados(Pedido p){
+		pedidosFechados.add(p);
+	}
+
+	public ArrayList<Pedido> pedidoPorDescricao(String descricao) {
+		ArrayList<Pedido> pedidosPorDescricao = new ArrayList<>();
+		for(Pedido pedido : pedidos) {
+			ArrayList<Item> itens = (ArrayList<Item>) pedido.getItens();
+			for(Item item : itens) {
+				if(item.getDescricao().equals(descricao)) {
+					pedidosPorDescricao.add(pedido);
+				}
+			}
+		}
+		return pedidosPorDescricao;
+	}
 //	public void removePedido(int numPedido, int quantidade) {
 //		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
 //			Pedido pedido = listaPedido.get(numPedido - 1);
@@ -395,11 +412,4 @@ public class Empresa {
 //		}
 //	}
 
-	public void getEstatisticas() {
-
-	}
-
-	public void pedidosFechados(Pedido p){
-		pedidosFechados.add(p);
-	}
 }
