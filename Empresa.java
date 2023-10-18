@@ -102,13 +102,40 @@ public class Empresa {
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.nextLine();
 
-								System.out.printf("\nData de fechamento");
+								System.out.printf("\nData de fechamento: ");
 								String dataFechamento = in.nextLine();
 
-								System.out.printf("\nStatus");
+								System.out.printf("\nStatus: ");
 								String status = in.nextLine();
 
-								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status);
+								System.out.println("\nCódigo do produto: ");
+								int c = in.nextInt();
+								for ( Pedido w:
+										pedidos) {
+									if(w.getNumeroPedido()==c){
+										System.out.println("Pedido já existente: ");
+										break;
+									}
+								}
+
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status, c);
+
+								System.out.println("Quantos itens deseja adicionar? ");
+								int i = in.nextInt();
+								for (int x=0;x<i;x++){
+									System.out.println("Informe a descrição: ");
+									String descricao = in.nextLine();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									System.out.println("Informe o valor total: ");
+									double valorTotal = in.nextDouble();
+									Item item = new Item(descricao,valorUnitario,quantidade,valorTotal);
+									novoPedido.adicionaItens(item);
+								}
+
+
 
 								break;
 							case 2:
@@ -186,7 +213,32 @@ public class Empresa {
 								System.out.printf("\nStatus");
 								String status = in.nextLine();
 
-								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status);
+								System.out.println("\nCódigo do produto: ");
+								int c = in.nextInt();
+								for ( Pedido w:
+									 pedidos) {
+									if(w.getNumeroPedido()==c){
+										System.out.println("Pedido já existente: ");
+										break;
+									}
+								}
+
+								Pedido novoPedido = new Pedido(fu, fu.getDepartamento(), dataPedido, dataFechamento, status, c);
+
+								System.out.println("Quantos itens deseja adicionar? ");
+								int i = in.nextInt();
+								for (int x=0;x<i;x++){
+									System.out.println("Informe a descrição: ");
+									String descricao = in.nextLine();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									System.out.println("Informe o valor total: ");
+									double valorTotal = in.nextDouble();
+									Item item = new Item(descricao,valorUnitario,quantidade,valorTotal);
+									novoPedido.adicionaItens(item);
+								}
 								break;
 							case 2:
 								for (Pedido p:
@@ -281,31 +333,31 @@ public class Empresa {
 	}
 
 
-	public void removePedido(int numPedido, int quantidade) {
-		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
-			Pedido pedido = listaPedido.get(numPedido - 1);
-			if(quantidade < pedido.getQuantidade()){
-				pedido.setQuantidade(pedido.getQuantidade() - quantidade);
-			} else{
-				listaPedido.remove(pedido);
-			}
-		}
-	}
-	public void fechaPedido(Pedido pedido) {
-
-		boolean pedidoEncontrado = false;
-
-		for(Pedido p : listaPedidos){
-			if(p.equals(pedido)){
-				pedidoEncontrado = true;
-				p.setStatus("Pedido Fechado");
-				getPedidosDescricao();
-			}
-		}
-		if(!pedidoEncontrado){
-			System.out.println("Pedido não encontrado. Não foi possível fechá-lo.");
-		}
-	}
+//	public void removePedido(int numPedido, int quantidade) {
+//		if(aberta && numPedido >= 1 && numPedido <= listaPedido.size() && quantidade > 0){
+//			Pedido pedido = listaPedido.get(numPedido - 1);
+//			if(quantidade < pedido.getQuantidade()){
+//				pedido.setQuantidade(pedido.getQuantidade() - quantidade);
+//			} else{
+//				listaPedido.remove(pedido);
+//			}
+//		}
+//	}
+//	public void fechaPedido(Pedido pedido) {
+//
+//		boolean pedidoEncontrado = false;
+//
+//		for(Pedido p : listaPedidos){
+//			if(p.equals(pedido)){
+//				pedidoEncontrado = true;
+//				p.setStatus("Pedido Fechado");
+//				getPedidosDescricao();
+//			}
+//		}
+//		if(!pedidoEncontrado){
+//			System.out.println("Pedido não encontrado. Não foi possível fechá-lo.");
+//		}
+//	}
 
 	public void getEstatisticas() {
 
