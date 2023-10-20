@@ -26,14 +26,6 @@ public class Departamentos {
 	public void addFuncionarios(Funcionario funcionario) {
 			funcionarios.add(funcionario);
 	}
-	
-	public void removeFuncionarios(Funcionario funcionario) {
-		if(funcionarios.isEmpty())
-			System.out.println("Não foi possível remover pois o departamento ja está vazio");
-		else{
-			funcionarios.remove(funcionario);
-			System.out.println("Funcionário removido!  "+getNome());}
-	}
 
 	@Override
 	public String toString() {
@@ -49,12 +41,4 @@ public class Departamentos {
 
 		return sb.toString();
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Departamentos " +
-//				"\nValor Máximo por pedido= " + valorMaximo +
-//				"\nNome= " + nome +
-//				"\nFuncionarios=" + funcionarios;
-//	}
 }

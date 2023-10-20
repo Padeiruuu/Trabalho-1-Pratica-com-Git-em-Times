@@ -19,14 +19,6 @@ public class Item {
 		return valorTotal;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public double getValorUnitario() {
-		return valorUnitario;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}

@@ -11,20 +11,11 @@ public class Usuario {
 		this.iniciais = iniciais;
 	}
 
-	public int getIdentificador() {
-		return this.identificador;
-	}
-
 	public String getNome() {
 		return this.nome;
 	}
 
-	public String getIniciais() {
-		return this.iniciais;
+	public int getIdentificador() {
+		return identificador;
 	}
-
-	public boolean isAdmin() {
-		return this.isAdmin;
-	}
-
 }

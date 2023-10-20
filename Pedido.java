@@ -15,8 +15,6 @@ public class Pedido {
 
 	private List<Item> itens;
 
-	private List<Pedido> pedidosFechados = new ArrayList<>();;
-
 	private int numero;
 
 	private double total=0;
@@ -46,10 +44,6 @@ public class Pedido {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public String getDataFechamento() {
-		return dataFechamento;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -67,54 +61,33 @@ public class Pedido {
 		total+=item.getValorTotal();
 	}
 
-	public void removeItens(Item item){
-		itens.remove(item);
-	}
-
 	public int getNumeroPedido(){
 		return numero;
 	}
 
 	public double Total(){
-//		for (Item i:
-//			 itens) {
-//			total+=i.getValorTotal();
-//		}
 		return total;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Pedido{" +
-//				"funcionario=" + funcionario +
-//				", departamento=" + departamento +
-//				", dataPedido='" + dataPedido + '\'' +
-//				", dataFechamento='" + dataFechamento + '\'' +
-//				", status='" + status + '\'' +
-//				", itens=" + itens +
-//				", pedidosFechados=" + pedidosFechados +
-//				", numero=" + numero +
-//				", total=" + total +
-//				'}';
-//	}
+
 @Override
-public String toString() {
-	StringBuilder sb = new StringBuilder();
-	sb.append("Pedido{");
-	sb.append("funcionario=").append(funcionario.getNome()); // Imprime o nome do funcionário
-	sb.append(", departamento=").append(departamento.getNome()); // Imprime o nome do departamento
-	sb.append(", dataPedido='").append(dataPedido).append('\'');
-	sb.append(", dataFechamento='").append(dataFechamento).append('\'');
-	sb.append(", status='").append(status).append('\'');
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Pedido{");
+		sb.append("funcionario=").append(funcionario.getNome());
+		sb.append(", departamento=").append(departamento.getNome());
+		sb.append(", dataPedido='").append(dataPedido).append('\'');
+		sb.append(", dataFechamento='").append(dataFechamento).append('\'');
+		sb.append(", status='").append(status).append('\'');
 
-	sb.append("\nItens:");
-	for (Item item : itens) {
-		sb.append("\n - ").append(item.getDescricao()); // Imprime a descrição do item
+		sb.append("\nItens:");
+		for (Item item : itens) {
+			sb.append("\n - ").append(item.getDescricao());
+		}
+
+		sb.append(", numero=").append(numero);
+		sb.append(", total=").append(total);
+		sb.append('}');
+			return sb.toString();
 	}
-
-	sb.append(", numero=").append(numero);
-	sb.append(", total=").append(total);
-	sb.append('}');
-	return sb.toString();
-}
 }
