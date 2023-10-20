@@ -5,11 +5,10 @@ public class Usuario {
 	private String iniciais;
 	private boolean isAdmin;
 
-	public Usuario(int identificador, String nome, String iniciais, boolean isAdmin) {
+	public Usuario(int identificador, String nome, String iniciais) {
 		this.identificador = identificador;
 		this.nome = nome;
 		this.iniciais = iniciais;
-		this.isAdmin = isAdmin;
 	}
 
 	public int getIdentificador() {

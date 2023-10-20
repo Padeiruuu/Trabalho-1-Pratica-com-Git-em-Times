@@ -7,7 +7,7 @@ public class Funcionario extends Usuario {
 	private List<Pedido> pedidos;
 
 	public Funcionario(int id, String nome, String iniciais, Departamentos departamento) {
-		super(id, nome, iniciais, false);
+		super(id, nome, iniciais);
 		this.departamento = departamento;
 		pedidos = new ArrayList<>();
 	}
@@ -24,10 +24,15 @@ public class Funcionario extends Usuario {
 		return pedidos;
 	}
 
+	public void removePedido(Pedido p){
+		pedidos.remove(p);
+	}
+
+
 	@Override
 	public String toString() {
 		return "Funcionario{" +
-				"departamento=" + departamento +
+				"departamento=" + departamento.getNome() +
 				", pedidos=" + pedidos +
 				'}';
 	}

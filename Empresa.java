@@ -3,32 +3,57 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 public class Empresa {
 
-	private List<Pedido> pedidos = new ArrayList<>();
-	private List<Pedido> pedidosFechados = new ArrayList<>();
-	private List<Departamentos> departamentos = new ArrayList<>();
+	Departamentos depto1;
+	Departamentos depto2;
+	Departamentos depto3;
+	Departamentos depto4;
+	Departamentos depto5;
 
+	Funcionario func1;
+	Funcionario func2;
+	Funcionario func3;
+	Funcionario func4;
+	Funcionario func5;
+	Funcionario func6;
+	Funcionario func7;
+	Funcionario func8;
+	Funcionario func9;
+	Funcionario func10;
+	Funcionario func11;
+	Funcionario func12;
+	Funcionario func13;
+	Funcionario func14;
+	Funcionario func15;
+
+	private List<Pedido> pedidos; //= new ArrayList<>();
+	private List<Pedido> pedidosFechados;// = new ArrayList<>();
+	private List<Pedido> pedidosReprovados;
+	private List<Departamentos> departamentos; // = new ArrayList<>();
 	public Empresa(){
-		Departamentos depto1 = new Departamentos("RH", 10000);
-		Departamentos depto2 = new Departamentos("Financeiro",10000);
-		Departamentos depto3 = new Departamentos("Tecnologia",10000);
-		Departamentos depto4 = new Departamentos("Arquitetura",10000);
-		Departamentos depto5 = new Departamentos("Administração",10000);
-
-		Funcionario func1 = new Funcionario(12345,"Carla","Car",depto1);
-		Funcionario func2 = new Funcionario(12346,"Carlos","Car",depto1);
-		Funcionario func3 = new Funcionario(12347,"Maria","Mar",depto1);
-		Funcionario func4 = new Funcionario(15345,"Cristina","Cri",depto2);
-		Funcionario func5 = new Funcionario(12645,"Roberta","Rob",depto2);
-		Funcionario func6 = new Funcionario(12745,"Ronaldo","Ron",depto2);
-		Funcionario func7 = new Funcionario(12845,"Jack","Jac",depto3);
-		Funcionario func8 = new Funcionario(12325,"Joana","Joa",depto3);
-		Funcionario func9 = new Funcionario(13545,"Alberto","Alb",depto3);
-		Funcionario func10 = new Funcionario(23345,"Jackson","Jac",depto4);
-		Funcionario func11 = new Funcionario(22345,"Rickson","Ric",depto4);
-		Funcionario func12 = new Funcionario(42345,"Jonas","Jon",depto4);
-		Funcionario func13 = new Funcionario(32345,"Maria","Mar",depto5);
-		Funcionario func14 = new Funcionario(72345,"Ricardo","Ric",depto5);
-		Funcionario func15 = new Funcionario(92345,"Vitor","Vit",depto5);
+		pedidos = new ArrayList<>();
+		pedidosFechados = new ArrayList<>();
+		pedidosReprovados = new ArrayList<>();
+		departamentos = new ArrayList<>();
+		depto1 = new Departamentos("RH", 10000);
+		depto2 = new Departamentos("Financeiro",10000);
+		depto3 = new Departamentos("Tecnologia",10000);
+		depto4 = new Departamentos("Arquitetura",10000);
+		depto5 = new Departamentos("Administração",10000);
+		func1 = new Funcionario(12345,"Carla","Car",depto1);
+		func2 = new Funcionario(12346,"Carlos","Car",depto1);
+		func3 = new Funcionario(12347,"Maria","Mar",depto1);
+		func4 = new Funcionario(15345,"Cristina","Cri",depto2);
+		func5 = new Funcionario(12645,"Roberta","Rob",depto2);
+		func6 = new Funcionario(12745,"Ronaldo","Ron",depto2);
+		func7 = new Funcionario(12845,"Jack","Jac",depto3);
+		func8 = new Funcionario(12325,"Joana","Joa",depto3);
+		func9 = new Funcionario(13545,"Alberto","Alb",depto3);
+		func10 = new Funcionario(23345,"Jackson","Jac",depto4);
+		func11 = new Funcionario(22345,"Rickson","Ric",depto4);
+		func12 = new Funcionario(42345,"Jonas","Jon",depto4);
+		func13 = new Funcionario(32345,"Maria","Mar",depto5);
+		func14 = new Funcionario(72345,"Ricardo","Ric",depto5);
+		func15 = new Funcionario(92345,"Vitor","Vit",depto5);
 		depto1.addFuncionarios(func1);
 		depto1.addFuncionarios(func2);
 		depto1.addFuncionarios(func3);
@@ -85,8 +110,8 @@ public class Empresa {
 				""";
 		System.out.println(menuAdministrador);
 	}
-	public void operacoes(){
-		Scanner in = new Scanner(System.in);
+	public void operacoes(Scanner in){
+		//Scanner in = new Scanner(System.in);
 		int option=0;
 		int opt=0;
 		int o=0;
@@ -106,7 +131,7 @@ public class Empresa {
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.next();
 
-								System.out.printf("\nData de fechamento: ");
+								System.out.printf("\nData de entrega: ");
 								String dataFechamento = in.next();
 
 								System.out.printf("\nStatus: ");
@@ -114,67 +139,112 @@ public class Empresa {
 
 								System.out.println("\nCódigo do produto: ");
 								int c = in.nextInt();
-								for ( Pedido w:
-										pedidos) {
-									if(w.getNumeroPedido()==c){
-										System.out.println("Pedido já existente: ");
+
+								if(!pedidos.isEmpty()) {
+									boolean repetido = false;
+									for (Pedido w :
+											pedidos) {
+										if (w.getNumeroPedido() == c) {
+											System.out.println("Pedido já existente: ");
+											repetido = true;
+											break;
+										}
+									}
+
+									if (repetido) {
 										break;
 									}
 								}
 
+
+								for (Departamentos d:
+									 departamentos) {
+									System.out.println(d);
+								}
+
 								System.out.printf("\nNome do funcionário: ");
-								System.out.println(departamentos);
 								String nomeFuncionario = in.next();
 								Pedido novoPedido=null;
+								boolean funEncont = false;
+								Funcionario h=null;
+
 								for (Departamentos dep : departamentos ) {
 									for ( Funcionario f : dep.getFuncionarios()) {
-										if(f.getNome().equals(nomeFuncionario)){
-											novoPedido = new Pedido(f, f.getDepartamento(), dataPedido, dataFechamento, status, c);
-											f.addPedido(novoPedido);
-										}else{
-											System.out.println("Não há funcionário com esse nome");
+										if(f.getNome().equalsIgnoreCase(nomeFuncionario)){
+											h = f;
+											funEncont=true;
 											break;
 										}
 									}
 								}
+								if(!funEncont){
+									System.out.println("Não há funcionário com esse nome");
+									break;
+								}
+								novoPedido = new Pedido(h, h.getDepartamento(), dataPedido, dataFechamento, status, c);
+								h.addPedido(novoPedido);
+								pedidos.add(novoPedido);
+
+
 
 								System.out.println("Quantos itens deseja adicionar? ");
 								int i = in.nextInt();
+								boolean pedidoUltrapassaMaximo=false;
 								for (int x=0;x<i;x++){
-									if(novoPedido.Total()<novoPedido.getDepartamento().getValorMaximo()){
-										System.out.println("Informe a descrição: ");
-										String descricao = in.next();
-										System.out.println("Informe o valor unitário: ");
-										double valorUnitario = in.nextDouble();
-										System.out.println("Informe a quantidade: ");
-										int quantidade = in.nextInt();
-										System.out.println("Informe o valor total: ");
-										double valorTotal = in.nextDouble();
+									System.out.println("Informe a descrição: ");
+									String descricao = in.next();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									double valorTotal = valorUnitario * quantidade;
+
+									if(novoPedido.Total()+valorTotal<novoPedido.getDepartamento().getValorMaximo()){
 										Item item = new Item(descricao, valorUnitario, quantidade, valorTotal);
 										novoPedido.adicionaItens(item);
 									}else{
 										System.out.println("Pedido ultrapassa valor máximo. Impossível adicionar tal item.");
+										pedidoUltrapassaMaximo=true;
 										break;
+									}
+
+									if (!pedidoUltrapassaMaximo) {
+										System.out.println("Itens adicionados ao pedido com sucesso!");
 									}
 								}
 
 								break;
 							case 2:
 								System.out.println("Exclusão de aquisição: ");
-								System.out.printf("\nNome do funcionário: ");
-								System.out.println(departamentos);
+								System.out.println("\nNome do funcionário: ");
+								for (Departamentos d:
+										departamentos) {
+									System.out.println(d);
+								}
 								String nomeFunc = in.next();
+								boolean fEncontrado = false;
 								for (Departamentos dep : departamentos ) {
 									for ( Funcionario f : dep.getFuncionarios()) {
-										if(f.getNome().equals(nomeFunc)){
+										if(f.getNome().equalsIgnoreCase(nomeFunc)){
+											fEncontrado = true;
+											if(f.getPedidos().isEmpty()){
+												System.out.println("O funcionário não possui pedidos");
+												break;
+											}
+											for (Pedido g:
+												 f.getPedidos()) {
+												System.out.println(g);
+											}
 											System.out.printf("\nDigite o número do pedido que você deseja excluir: ");
 											int numPedido = in.nextInt();
-
 											boolean pedidoRemovido = false;
-
-											for(Pedido pedido : pedidos){
-												if(pedido.getNumeroPedido() == numPedido){
-													pedidos.remove(pedido);
+//
+											Iterator<Pedido> iterator = pedidos.iterator();
+											while (iterator.hasNext()) {
+												Pedido pedido = iterator.next();
+												if (pedido.getNumeroPedido() == numPedido) {
+													iterator.remove();
+													f.removePedido(pedido);
 													pedidoRemovido = true;
 												}
 											}
@@ -184,31 +254,42 @@ public class Empresa {
 												System.out.println("Pedido não encontrado");
 											}
 											break;
-										}else{
-											System.out.println("Funcionário não encontrado");
 										}
 									}
 								}
+								if(!fEncontrado){
+									System.out.println("Funcionário não encontrado");
+								}
 								break;
 							case 3:
-								System.out.println("Você escolheu fechar um pedido.");
+
+								if(pedidos.size()==0){
+									System.out.println("Não há pedidos registrados");
+									break;
+								}
 								for (Pedido ped : pedidos) {
 									System.out.println(ped);
 								}
 								System.out.printf("\nDigite o número do pedido que você deseja fechar: ");
-								int numPedid = in.nextInt();
-								for (Pedido ped : pedidos) {
-									if (ped.getNumeroPedido()==numPedid){
-										if(ped.getStatus().equals("APROVADO")) {
-											pedidos.remove(ped);
-											pedidosFechados(ped);
-										}else{
+								int numPedido = in.nextInt();
+								List<Pedido> pedidosARemover = new ArrayList<>();
+								Iterator<Pedido> iterator = pedidos.iterator();
+								while (iterator.hasNext()) {
+									Pedido pedido = iterator.next();
+									if (pedido.getNumeroPedido() == numPedido) {
+										if (pedido.getStatus().equals("APROVADO")) {
+											System.out.println("Digite a data em que o pedido foi fechado: ");
+											String f = in.next();
+											pedido.setDataFechamento(f);
+											pedidosARemover.add(pedido);
+											pedidosFechados(pedido);
+										} else {
 											System.out.println("Pedido ainda não foi aprovado.");
 										}
-									}else{
-										System.out.println("Pedido não encontrado.");
 									}
 								}
+
+								pedidos.removeAll(pedidosARemover);
 								break;
 							case 4:
 								System.out.println("Voltando ao menu principal.");
@@ -230,7 +311,7 @@ public class Empresa {
 								System.out.printf("\nData do pedido: ");
 								String dataPedido = in.next();
 
-								System.out.printf("\nData de fechamento: ");
+								System.out.printf("\nData de entrega: ");
 								String dataFechamento = in.next();
 
 								System.out.printf("\nStatus: ");
@@ -238,73 +319,119 @@ public class Empresa {
 
 								System.out.println("\nCódigo do produto: ");
 								int c = in.nextInt();
-								for ( Pedido w:
-										pedidos) {
-									if(w.getNumeroPedido()==c){
-										System.out.println("Pedido já existente: ");
+
+								if(!pedidos.isEmpty()) {
+									boolean repetido = false;
+									for (Pedido w :
+											pedidos) {
+										if (w.getNumeroPedido() == c) {
+											System.out.println("Pedido já existente: ");
+											repetido = true;
+											break;
+										}
+									}
+
+									if (repetido) {
 										break;
 									}
 								}
 
+
+								for (Departamentos d:
+										departamentos) {
+									System.out.println(d);
+								}
+
 								System.out.printf("\nNome do funcionário: ");
-								System.out.println(departamentos);
 								String nomeFuncionario = in.next();
 								Pedido novoPedido=null;
+								boolean funEncont = false;
+								Funcionario h=null;
+
 								for (Departamentos dep : departamentos ) {
 									for ( Funcionario f : dep.getFuncionarios()) {
-										if(f.getNome().equals(nomeFuncionario)){
-											novoPedido = new Pedido(f, f.getDepartamento(), dataPedido, dataFechamento, status, c);
-											f.addPedido(novoPedido);
-										}else{
-											System.out.println("Não há funcionário com esse nome");
+										if(f.getNome().equalsIgnoreCase(nomeFuncionario)){
+											h = f;
+											funEncont=true;
 											break;
 										}
 									}
 								}
+								if(!funEncont){
+									System.out.println("Não há funcionário com esse nome");
+									break;
+								}
+								novoPedido = new Pedido(h, h.getDepartamento(), dataPedido, dataFechamento, status, c);
+								h.addPedido(novoPedido);
+								pedidos.add(novoPedido);
+
+
 
 								System.out.println("Quantos itens deseja adicionar? ");
 								int i = in.nextInt();
+								boolean pedidoUltrapassaMaximo=false;
 								for (int x=0;x<i;x++){
-									if(novoPedido.Total()<novoPedido.getDepartamento().getValorMaximo()){
-										System.out.println("Informe a descrição: ");
-										String descricao = in.next();
-										System.out.println("Informe o valor unitário: ");
-										double valorUnitario = in.nextDouble();
-										System.out.println("Informe a quantidade: ");
-										int quantidade = in.nextInt();
-										System.out.println("Informe o valor total: ");
-										double valorTotal = in.nextDouble();
+									System.out.println("Informe a descrição: ");
+									String descricao = in.next();
+									System.out.println("Informe o valor unitário: ");
+									double valorUnitario = in.nextDouble();
+									System.out.println("Informe a quantidade: ");
+									int quantidade = in.nextInt();
+									double valorTotal = valorUnitario * quantidade;
+
+									if(novoPedido.Total()+valorTotal<novoPedido.getDepartamento().getValorMaximo()){
 										Item item = new Item(descricao, valorUnitario, quantidade, valorTotal);
 										novoPedido.adicionaItens(item);
 									}else{
 										System.out.println("Pedido ultrapassa valor máximo. Impossível adicionar tal item.");
+										pedidoUltrapassaMaximo=true;
 										break;
 									}
+
+									if (!pedidoUltrapassaMaximo) {
+										System.out.println("Itens adicionados ao pedido com sucesso!");
+									}
 								}
+
 								break;
 							case 2:
+
+								if(pedidos.size()==0){
+									System.out.println("Não há pedidos registrados");
+									break;
+								}
+								System.out.println("-------< PEDIDOS >-------");
 								for (Pedido p:
 									 pedidos) {
 									System.out.println(p);
 								}
-								System.out.println(pedidos);
 								System.out.println("Digite o pedido a ser avaliado: ");
 								int pedid = in.nextInt();
+								List<Pedido> pedidoRemove = new ArrayList<>();
 								for (Pedido p : pedidos) {
-									if(p.getNumeroPedido()==pedid){
+									if (p.getNumeroPedido() == pedid) {
 										System.out.println(p);
-										System.out.println("Qual a avaliação do pedido:\nAprovado\nReprovado\n");
+										System.out.println("Qual a avaliação do pedido:\n\nAprovado\nReprovado\n");
 										String s = in.next().toUpperCase();
 										p.setStatus(s);
-										break;
+										if (p.getStatus().equalsIgnoreCase("reprovado")) {
+											pedidosReprovados(p);
+											pedidoRemove.add(p);
+										}
 									}
 								}
+								pedidos.removeAll(pedidoRemove);
 								break;
 							case 3:
 								System.out.println("Digite a data de início: ");
 								String di = in.next();
 								System.out.println("Digite a data de fim: ");
 								String df = in.next();
+								if(pedidos.size()==0){
+									System.out.println("Não há pedidos registrados");
+									break;
+								}
+								System.out.println("-------< PEDIDOS >-------");
 								for (Pedido q:
 									 pedidosEntreDatas(di,df)) {
 									System.out.println(q);
@@ -313,8 +440,25 @@ public class Empresa {
 							case 4:
 								System.out.println("Digite o nome do funcionário solicitante: ");
 								String f = in.next();
+								Boolean achado = false;
+								for (Departamentos dep : departamentos ) {
+									for (Funcionario fun : dep.getFuncionarios()) {
+										if(fun.getNome().equalsIgnoreCase(f)){
+											achado=true;
+											if(fun.getPedidos().isEmpty()){
+												System.out.println("Funcionário não possui pedidos");
+												break;
+											}else{
+												System.out.println(fun.getPedidos());
+											}
+										}
+									}
+								}
+								if(!achado){
+									System.out.println("Não há funcionário com esse nome");
+								}
 								for (Pedido p: pedidos) {
-									if(p.getFuncionario().getNome()==f){
+									if(p.getFuncionario().getNome().equals(f)){
 										System.out.println(p);
 									}
 								}
@@ -323,36 +467,92 @@ public class Empresa {
 								System.out.printf("Digite a descrição do item: ");
 								String descricao = in.next();
 								if(!pedidoPorDescricao(descricao).isEmpty()){
-									System.out.println("Descrições encontradas");
 									for (Pedido pedido: pedidoPorDescricao(descricao)){
-										System.out.println("O número do pedido é: "+pedido.getNumeroPedido());
+										System.out.println(pedido);
 									}
 								}else{
 									System.out.println("Nenhum pedido encontrado com a descrição inserida.");
 								}
 								break;
 							case 6:
-								System.out.println("Estatisticas Gerais");
-								System.out.println("Pedidos:");
-								int pedidoTotal = in.nextInt();
-								for (Pedido pedido: pedidos){
-									 pedidoTotal = pedido.getNumeroPedido();
-								}
-								if(pedidoTotal <= 0){
-									System.out.println("Não ocorreram pedidos.");
+								System.out.println("Estatísticas Gerais\n");
+								System.out.println("Pedidos Totais:");
+								if(!(pedidos.isEmpty() && pedidosFechados.isEmpty() && pedidosReprovados.isEmpty())) {
+									System.out.print("Número de pedidos:");
+									int num = pedidos.size()+pedidosFechados.size() + pedidosReprovados.size();
+									System.out.println(num+"\n");
+
+									for (Pedido pedido : pedidos) {
+										System.out.println(pedido);
+									}
+
+									System.out.println("-----< APROVADOS >-----");
+									for (Pedido pedi : pedidos) {
+										if(pedi.getStatus().equalsIgnoreCase("aprovado")) {
+											System.out.println(pedi);
+										}
+									}
+									for (Pedido pedi : pedidosFechados) {
+										if(pedi.getStatus().equalsIgnoreCase("aprovado")) {
+											System.out.println(pedi);
+										}
+									}
+
+									System.out.println("\nNúmero de pedidos nos últimos 30 dias e o valor médio");
+
+									System.out.println("-------< PEDIDOS >-------");
+									String din = "20/09/2023";
+									String dfi = "10/10/2023";
+									for (Pedido q:
+											pedidosEntreDatas(din,dfi)) {
+										System.out.println(q);
+									}
+									System.out.println("-------< VALOR MÉDIO >-------");
+									double soma=0;
+									int count=0;
+									for (Pedido q:
+											pedidosEntreDatas(din,dfi)) {
+										soma+=q.Total();
+										count++;
+									}
+									double media = soma/count;
+									System.out.println(media);
+
+									System.out.println("\nValor total de cada categoria nos ultimos 30 dias");
+
+									double somaAp = 0;
+
+									for (Pedido pedi : pedidos) {
+										if(pedi.getStatus().equalsIgnoreCase("aprovado")) {
+											somaAp+=pedi.Total();
+										}
+									}
+									System.out.println("Total Abertos: " + somaAp);
+									double somaFe = 0;
+									for (Pedido pedi : pedidosFechados) {
+										somaFe+=pedi.Total();
+									}
+									System.out.println("Total Fechados: " + somaFe);
+									double somaRe = 0;
+									for (Pedido pedi : pedidosReprovados) {
+										somaRe+=pedi.Total();
+									}
+									System.out.println("Total Reprovados: " + somaRe);
+									System.out.println("\nPedido 'ABERTO' de maior valor");
+									Pedido pedidoMaiorValor = null;
+									double maiorValor = Double.MIN_VALUE;
+
+									for (Pedido pedido : pedidos) {
+										if (pedido.Total() > maiorValor) {
+											maiorValor = pedido.Total();
+											pedidoMaiorValor = pedido;
+										}
+									}
+									System.out.println(pedidoMaiorValor);
+
 								}else{
-									System.out.println("O número de pedidos total é: "+pedidoTotal);
+									System.out.println("Não há pedidos cadastrados");
 								}
-
-								System.out.println("Numero de pedidos nos ultimos 30 dias e o valor medio");
-								//COMO FAZ PRA VERIFCIAR A DATAAAAAAAA
-
-								System.out.println("Valor total de cada categoria nos ultimos 30 dias");
-								//Não faço ideia de como fazer isso;
-
-								System.out.println("Pedido de aquisição");
-								//A gente nao tem nenhum metodo que fala sobre pedidos abertos, aprovados, reprovados
-								//então nao sei o que fazer
 
 								break;
 							case 7:
@@ -377,6 +577,10 @@ public class Empresa {
 	}
 
 	public void pedidosFechados(Pedido p){
+		pedidosFechados.add(p);
+	}
+
+	public void pedidosReprovados(Pedido p){
 		pedidosFechados.add(p);
 	}
 

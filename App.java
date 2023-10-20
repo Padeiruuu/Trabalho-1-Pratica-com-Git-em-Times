@@ -1,6 +1,7 @@
+import java.util.*;
 public class App {
     private Empresa empresa;
-
+    private Scanner in = new Scanner(System.in);
     public App() {
         empresa = new Empresa();
     }
@@ -11,6 +12,6 @@ public class App {
     }
 
     public void run(){
-        empresa.operacoes();
+        empresa.operacoes(in);
     }
 }

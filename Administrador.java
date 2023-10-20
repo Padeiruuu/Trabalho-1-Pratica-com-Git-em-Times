@@ -8,7 +8,7 @@ public class Administrador extends Usuario {
     private ArrayList<Pedido> pedidos;
 
     public Administrador(int identificador, String nome, String iniciais) {
-        super(identificador, nome, iniciais, true);
+        super(identificador, nome, iniciais);
     }
 
     public ArrayList<Pedido> pedidosEntreDatas(String dataInicial, String dataFinal) {
